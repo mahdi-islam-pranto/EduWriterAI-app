@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'app_theme/theme.dart';
+import 'app_theme/colors.dart';
 import 'screens/homepage.dart';
 
 void main() {
@@ -14,8 +13,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: AppTheme.lightTheme,
+      theme: ThemeData(
+        // define appbar colors
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.primary,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.transparent),
+        ),
+        // define scaffold colors
+        scaffoldBackgroundColor: AppColors.background,
+      ),
+      title: 'Edu Writer AI',
       home: const HomePage(),
     );
   }
