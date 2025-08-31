@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_theme/colors.dart';
-import 'screens/homepage.dart';
+import 'screens/main_navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.background,
       ),
       title: 'Edu Writer AI',
-      home: const HomePage(),
+      home: const MainNavigation(),
     );
   }
 }

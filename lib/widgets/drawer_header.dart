@@ -37,8 +37,8 @@ class DrawerHeaderWidget extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment:
-                MainAxisAlignment.center, // Center content vertically
+            // mainAxisAlignment:
+            //     MainAxisAlignment.center, // Center content vertically
             children: [
               // User avatar with border and shadow
               Container(
