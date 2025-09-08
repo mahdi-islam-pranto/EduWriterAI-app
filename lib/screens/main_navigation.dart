@@ -7,7 +7,9 @@ import 'content_history_page.dart';
 import 'profile_page.dart';
 
 class MainNavigation extends StatefulWidget {
-  const MainNavigation({super.key});
+  final String? initialCategory;
+
+  const MainNavigation({super.key, this.initialCategory});
 
   @override
   State<MainNavigation> createState() => _MainNavigationState();
@@ -16,13 +18,22 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    // If initial category is provided, navigate to generate content page
+    if (widget.initialCategory != null) {
+      _currentIndex = 1; // Generate content page index
+    }
+  }
+
   // List of pages for bottom navigation
-  final List<Widget> _pages = [
-    const HomePageContent(), // We'll extract the content from HomePage
-    const GenerateContentPage(),
-    const ContentHistoryPage(),
-    const ProfilePage(),
-  ];
+  List<Widget> get _pages => [
+        const HomePageContent(), // We'll extract the content from HomePage
+        GenerateContentPage(initialCategory: widget.initialCategory),
+        const ContentHistoryPage(),
+        const ProfilePage(),
+      ];
 
   // Navigation items configuration
   final List<BottomNavigationBarItem> _navigationItems = [

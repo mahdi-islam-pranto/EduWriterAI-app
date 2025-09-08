@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import '../app_theme/colors.dart';
 
 class GenerateContentPage extends StatefulWidget {
-  const GenerateContentPage({super.key});
+  final String? initialCategory;
+
+  const GenerateContentPage({super.key, this.initialCategory});
 
   @override
   State<GenerateContentPage> createState() => _GenerateContentPageState();
@@ -15,11 +17,11 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
   final _additionalInfoController = TextEditingController();
   final _wordCountController = TextEditingController();
 
-  // Dropdown values
-  String? _selectedLength;
+  // Dropdown values with default values
+  String? _selectedLength = 'medium'; // Default to medium
   String? _selectedTone;
   String? _selectedCategory;
-  String? _selectedSubject;
+  String? _selectedSubject = 'English'; // Default to English
   String? _selectedGrade;
 
   // Dropdown options
@@ -33,13 +35,18 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
   ];
   final List<String> _categoryOptions = [
     'paragraph',
-    'composition',
     'essay',
+    'composition',
     'letter',
     'email',
     'dialog',
     'application',
-    'completing story'
+    'story',
+    'report',
+    'summary',
+    'Explaination',
+    'MCQ',
+    'Poem'
   ];
   final List<String> _subjectOptions = [
     'English',
@@ -47,14 +54,19 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
     'Science',
     'History',
     'Geography',
-    'Literature',
-    'Physics',
-    'Chemistry',
-    'Biology'
   ];
   final List<String> _gradeOptions = ['6', '7', '8', '9', '10', '11', '12'];
 
   bool _isGenerating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set initial category if provided
+    if (widget.initialCategory != null) {
+      _selectedCategory = widget.initialCategory!.toLowerCase();
+    }
+  }
 
   @override
   void dispose() {

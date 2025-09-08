@@ -1,6 +1,7 @@
 import 'package:edu_writer_ai/app_theme/colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/app_drawer.dart';
+import 'main_navigation.dart';
 
 // Content Type Model
 class ContentType {
@@ -299,14 +300,12 @@ class HomePageContent extends StatelessWidget {
 
   void _navigateToContentGeneration(
       BuildContext context, ContentType contentType) {
-    // TODO: Navigate to content generation page
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Opening ${contentType.title} generator...'),
-        backgroundColor: AppColors.primary,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+    // Navigate to main navigation with selected category
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MainNavigation(
+          initialCategory: contentType.title,
         ),
       ),
     );
