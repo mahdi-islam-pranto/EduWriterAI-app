@@ -15,9 +15,12 @@ An AI-powered educational writing assistant built with Flutter that helps studen
 
 <div align="center">
   <img src="assets/screenshots/homepage.png" alt="Home Screen" width="250"/>
-  <img src="assets/screenshots/generate content form 1.png" alt="Content Generation" width="250"/>
-  <img src="assets/screenshots/generate content form 2.png" alt="Content Generation" width="250"/>
-  
+  <img src="assets/screenshots/generate content form 1.png" alt="Content Generation form" width="250"/>
+  <img src="assets/screenshots/generate content form 2.png" alt="Content Generation form2" width="250"/>
+  <img src="assets/screenshots/generating content loading.png" alt="Content loading" width="250"/>
+ <img src="assets/screenshots/generated content page.png" alt="Gnerated Content " width="250"/>
+  <img src="assets/screenshots/content history page.png" alt="Content History" width="250"/>
+  <img src="assets/screenshots/generated content details page.png" alt="Content Detail" width="250"/>
 </div>
 
 
