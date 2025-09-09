@@ -54,7 +54,7 @@ class ContentHistoryPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          
+
           // Content Area
           Container(
             width: double.infinity,
@@ -62,7 +62,7 @@ class ContentHistoryPage extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: AppColors.shadow,
                   blurRadius: 8,

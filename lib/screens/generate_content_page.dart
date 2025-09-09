@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../app_theme/colors.dart';
+import 'response_content_page.dart';
 
 class GenerateContentPage extends StatefulWidget {
   final String? initialCategory;
@@ -55,7 +56,20 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
     'History',
     'Geography',
   ];
-  final List<String> _gradeOptions = ['6', '7', '8', '9', '10', '11', '12'];
+  final List<String> _gradeOptions = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12'
+  ];
 
   bool _isGenerating = false;
 
@@ -496,16 +510,15 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
         "additional_info": _additionalInfoController.text.trim(),
       };
 
-      // TODO: Replace this with actual API call
-      print('API Body: $apiBody');
-
-      // Simulate API call delay
-      await Future.delayed(const Duration(seconds: 2));
-
-      // Show success message
-      _showSuccessSnackBar('Content generated successfully!');
-
-      // TODO: Navigate to result page or show generated content
+      // Navigate to generated content page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => GeneratedContentPage(
+            requestData: apiBody,
+          ),
+        ),
+      );
     } catch (e) {
       _showErrorSnackBar('Failed to generate content. Please try again.');
     } finally {
@@ -520,19 +533,6 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
       SnackBar(
         content: Text(message),
         backgroundColor: AppColors.error,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: AppColors.success,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
