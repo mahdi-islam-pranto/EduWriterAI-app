@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
 import '../app_theme/colors.dart';
+import '../models/generated_content.dart';
+import '../services/firestore_service.dart';
 
 class GeneratedContentPage extends StatefulWidget {
   final Map<String, dynamic> requestData;
@@ -29,9 +31,11 @@ class _GeneratedContentPageState extends State<GeneratedContentPage>
   String? _errorMessage;
   Map<String, dynamic>? _responseData;
   String? _lastDownloadedFilePath;
+  bool _isSavingToFirestore = false;
 
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  final FirestoreService _firestoreService = FirestoreService();
 
   @override
   void initState() {
@@ -86,6 +90,9 @@ class _GeneratedContentPageState extends State<GeneratedContentPage>
             _isLoading = false;
           });
           _animationController.forward();
+
+          // Save content to Firestore
+          _saveContentToFirestore();
         } else {
           throw Exception('API returned error status');
         }
@@ -99,6 +106,55 @@ class _GeneratedContentPageState extends State<GeneratedContentPage>
             'Failed to generate content. Please try again.\nError: ${e.toString()}';
         _isLoading = false;
       });
+    }
+  }
+
+  Future<void> _saveContentToFirestore() async {
+    if (_generatedContent == null) return;
+
+    try {
+      setState(() {
+        _isSavingToFirestore = true;
+      });
+
+      // Create GeneratedContent object
+      final content = GeneratedContent.fromApiData(
+        requestData: widget.requestData,
+        generatedContent: _generatedContent!,
+      );
+
+      // Save to Firestore
+      await _firestoreService.saveGeneratedContent(content);
+
+      // Show success message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Content saved to history'),
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      // Show error message but don't prevent user from using the content
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to save to history: ${e.toString()}'),
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSavingToFirestore = false;
+        });
+      }
     }
   }
 
